@@ -1,7 +1,6 @@
-import { Component } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { nanoid } from 'nanoid';
-import * as Yup from 'yup';
+import * as yup from 'yup';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -35,6 +34,11 @@ const Button = styled.button`
 // How to add this this.props.onSubmit in Formik?
 
 const initialValues = { name: '', number: '' };
+const schema = yup.object().shape({
+  name: yup.string().required(),
+  number: yup.string().min(6).max(16).required(),
+});
+
 export const ContactForm = () => {
   // const handleSubmit = e => {
   //   e.preventDefault();
@@ -59,6 +63,7 @@ export const ContactForm = () => {
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
+      validationSchema={schema}
       // onSubmit={(values, actions) => {
       //   console.log(JSON.stringify(values));
       //   // console.log(JSON.stringify(values, null, 2));
