@@ -1,5 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-// import { nanoid } from 'nanoid';
+import { nanoid } from 'nanoid';
 import * as yup from 'yup';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -34,46 +34,26 @@ const Button = styled.button`
   border-radius: 3px;
 `;
 
-// ContactForm receives props onSubmit from App.jsx
-// How to add this this.props.onSubmit in Formik?
-
 const initialValues = { name: '', number: '' };
 const schema = yup.object().shape({
   name: yup.string().required(),
   number: yup.string().min(6).max(10).required(),
 });
 
-export const ContactForm = () => {
-  // const handleSubmit = e => {
-  //   e.preventDefault();
-  //   const contact = {
-  //     id: nanoid(),
-  //     ...this.state,
-  //   };
-  //   this.props.onSubmit(contact);
-  // };
-
-  // const handleSubmit = (values, actions) => {
-  //   console.log(values);
-  //   console.log(actions);
-  // };
-
-  // const handleSubmit = (values, { resetForm }) => {
-  //   console.log(values);
-  //   resetForm();
-  // };
-
+export const ContactForm = ({ onAddNewContact }) => {
   const handleSubmit = (values, { resetForm }) => {
-    console.log(values);
+    values.id = nanoid();
 
+    onAddNewContact(values);
+    console.log(values);
     resetForm();
   };
 
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={handleSubmit}
       validationSchema={schema}
+      onSubmit={handleSubmit}
     >
       {props => (
         <>
@@ -103,5 +83,5 @@ export const ContactForm = () => {
 };
 
 ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  onAddNewContact: PropTypes.func.isRequired,
 };
