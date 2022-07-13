@@ -58,8 +58,14 @@ export const ContactForm = () => {
   //   console.log(actions);
   // };
 
+  // const handleSubmit = (values, { resetForm }) => {
+  //   console.log(values);
+  //   resetForm();
+  // };
+
   const handleSubmit = (values, { resetForm }) => {
     console.log(values);
+
     resetForm();
   };
 
@@ -68,18 +74,6 @@ export const ContactForm = () => {
       initialValues={initialValues}
       onSubmit={handleSubmit}
       validationSchema={schema}
-      // onSubmit={(values, actions) => {
-      //   console.log(JSON.stringify(values));
-      //   // console.log(JSON.stringify(values, null, 2));
-
-      //   actions.setSubmitting(true);
-      //   actions.resetForm({
-      //     values: {
-      //       name: '',
-      //       number: '',
-      //     },
-      //   });
-      // }}
     >
       {props => (
         <>
