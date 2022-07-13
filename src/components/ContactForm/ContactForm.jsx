@@ -87,7 +87,7 @@ export const ContactForm = () => {
               name="name"
               placeholder="Enter name"
             />
-            <ErrorMessage name="name" />
+            <ErrorMessage component="div" name="name" />
             <Input
               type="text"
               onChange={props.handleChange}
@@ -95,8 +95,7 @@ export const ContactForm = () => {
               name="number"
               placeholder="Enter phone"
             />
-            <ErrorMessage name="number" />
-            {props.errors.name && <div id="feedback">{props.errors.name}</div>}
+            <ErrorMessage component="div" name="number" />
             <Button type="submit">Submit</Button>
           </FormBorder>
         </>
