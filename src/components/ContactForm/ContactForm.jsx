@@ -1,4 +1,4 @@
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { nanoid } from 'nanoid';
 import * as yup from 'yup';
 import styled from 'styled-components';
@@ -87,6 +87,7 @@ export const ContactForm = () => {
               name="name"
               placeholder="Enter name"
             />
+            <ErrorMessage name="name" />
             <Input
               type="text"
               onChange={props.handleChange}
@@ -94,6 +95,7 @@ export const ContactForm = () => {
               name="number"
               placeholder="Enter phone"
             />
+            <ErrorMessage name="number" />
             {props.errors.name && <div id="feedback">{props.errors.name}</div>}
             <Button type="submit">Submit</Button>
           </FormBorder>
