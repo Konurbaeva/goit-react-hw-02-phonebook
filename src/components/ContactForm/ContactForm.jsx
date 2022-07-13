@@ -20,6 +20,10 @@ const Input = styled(Field)`
   border-radius: 3px;
 `;
 
+const ErrorText = styled(ErrorMessage)`
+  color: red;
+`;
+
 const Button = styled.button`
   font-size: 1em;
   margin: 1em;
@@ -36,7 +40,7 @@ const Button = styled.button`
 const initialValues = { name: '', number: '' };
 const schema = yup.object().shape({
   name: yup.string().required(),
-  number: yup.string().min(6).max(16).required(),
+  number: yup.string().min(6).max(10).required(),
 });
 
 export const ContactForm = () => {
@@ -87,7 +91,7 @@ export const ContactForm = () => {
               name="name"
               placeholder="Enter name"
             />
-            <ErrorMessage component="div" name="name" />
+            <ErrorText component="div" name="name" />
             <Input
               type="text"
               onChange={props.handleChange}
@@ -95,7 +99,7 @@ export const ContactForm = () => {
               name="number"
               placeholder="Enter phone"
             />
-            <ErrorMessage component="div" name="number" />
+            <ErrorText component="div" name="number" />
             <Button type="submit">Submit</Button>
           </FormBorder>
         </>
