@@ -1,5 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 import * as yup from 'yup';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
