@@ -31,73 +31,72 @@ const Button = styled.button`
   border-radius: 3px;
 `;
 
-export class ContactForm extends Component {
-  state = {
-    name: '',
-    number: '',
+// ContactForm receives props onSubmit from App.jsx
+// How to add this this.props.onSubmit in Formik?
+
+const initialValues = { name: '', number: '' };
+export const ContactForm = () => {
+  // const handleSubmit = e => {
+  //   e.preventDefault();
+  //   const contact = {
+  //     id: nanoid(),
+  //     ...this.state,
+  //   };
+  //   this.props.onSubmit(contact);
+  // };
+
+  // const handleSubmit = (values, actions) => {
+  //   console.log(values);
+  //   console.log(actions);
+  // };
+
+  const handleSubmit = (values, { resetForm }) => {
+    console.log(values);
+    resetForm();
   };
 
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.currentTarget.value });
-  };
+  return (
+    <Formik
+      initialValues={initialValues}
+      onSubmit={handleSubmit}
+      // onSubmit={(values, actions) => {
+      //   console.log(JSON.stringify(values));
+      //   // console.log(JSON.stringify(values, null, 2));
 
-  handleSubmit = e => {
-    e.preventDefault();
-    const contact = {
-      id: nanoid(),
-      ...this.state,
-    };
-    this.props.onSubmit(contact);
-    this.resetForm();
-  };
-
-  resetForm = () => {
-    this.setState({ name: '', number: '' });
-  };
-  render() {
-    const { name, number } = this.state;
-    return (
-      <Formik
-        validationSchema={Yup.object().shape({
-          name: Yup.string().required('Required'),
-          number: Yup.string().required('Required'),
-        })}
-      >
-        <FormBorder onSubmit={this.handleSubmit}>
-          <label htmlFor="name">
-            Name
+      //   actions.setSubmitting(true);
+      //   actions.resetForm({
+      //     values: {
+      //       name: '',
+      //       number: '',
+      //     },
+      //   });
+      // }}
+    >
+      {props => (
+        <>
+          <FormBorder>
             <Input
               type="text"
+              onChange={props.handleChange}
+              value={props.values.name}
               name="name"
-              value={name}
-              onChange={this.handleChange}
               placeholder="Enter name"
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              required
             />
-          </label>
-          <br />
-          <label htmlFor="number">
-            Number
             <Input
-              type="tel"
+              type="text"
+              onChange={props.handleChange}
+              value={props.values.number}
               name="number"
-              placeholder="Enter number"
-              value={number}
-              onChange={this.handleChange}
-              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-              title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-              required
+              placeholder="Enter phone"
             />
-          </label>
-
-          <Button type="submit">Add contact</Button>
-        </FormBorder>
-      </Formik>
-    );
-  }
-}
+            {props.errors.name && <div id="feedback">{props.errors.name}</div>}
+            <Button type="submit">Submit</Button>
+          </FormBorder>
+        </>
+      )}
+    </Formik>
+  );
+};
 
 ContactForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
